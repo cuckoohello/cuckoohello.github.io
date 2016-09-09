@@ -1,0 +1,706 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>使用LDAP Admin管理OpenLDAP | Kokonur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Yafeng Shan">
+    
+
+    
+    <meta name="description" content="Ldap Admin is a free Windows LDAP client and administration tool for LDAP directory management. This application lets you browse, search, modify, create and delete objects on LDAP server. It also supp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用LDAP Admin管理OpenLDAP">
+<meta property="og:url" content="http://blog.kokonur.me/2014/03/28/使用ldap-admin管理openldap/index.html">
+<meta property="og:site_name" content="Kokonur">
+<meta property="og:description" content="Ldap Admin is a free Windows LDAP client and administration tool for LDAP directory management. This application lets you browse, search, modify, create and delete objects on LDAP server. It also supp">
+<meta property="og:image" content="http://blog.kokonur.me/uploads/2014/03/ldap-new-connection.jpg">
+<meta property="og:image" content="http://blog.kokonur.me/uploads/2014/03/ldap-connect.jpg">
+<meta property="og:image" content="http://blog.kokonur.me/uploads/2014/03/ldap-organization.jpg">
+<meta property="og:image" content="http://blog.kokonur.me/uploads/2014/03/ldap-new-user.jpg">
+<meta property="og:updated_time" content="2016-08-29T00:38:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用LDAP Admin管理OpenLDAP">
+<meta name="twitter:description" content="Ldap Admin is a free Windows LDAP client and administration tool for LDAP directory management. This application lets you browse, search, modify, create and delete objects on LDAP server. It also supp">
+<meta name="twitter:image" content="http://blog.kokonur.me/uploads/2014/03/ldap-new-connection.jpg">
+<link rel="publisher" href="110827390075659657828">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Kokonur" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/favicon.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/favicon.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Kokonur" title="Kokonur"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Kokonur">Kokonur</a></h1>
+				<h2 class="blog-motto">Tofu, fish and more sleep</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/toys">装备</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/03/28/使用ldap-admin管理openldap/" title="使用LDAP Admin管理OpenLDAP" itemprop="url">使用LDAP Admin管理OpenLDAP</a>
+  </h1>
+  <p class="article-author">By
+    
+    <a href="/author/cuckoo" title="Yafeng Shan" target="_blank" itemprop="author">Yafeng Shan</a>
+    
+  <p class="article-time">
+    <time datetime="2014-03-28T05:54:43.000Z" itemprop="datePublished"> 发表于 2014-03-28</time>
+    
+  </p>
+</header>
+
+	<div class="article-content">
+		
+		<p><a href="http://www.ldapadmin.org/" target="_blank" rel="external">Ldap Admin</a> is a free Windows LDAP client and administration tool for LDAP directory management. This application lets you browse, search, modify, create and delete objects on LDAP server. It also supports more complex operations such as directory copy and move between remote servers and extends the common edit functions to support specific object types (such as groups and accounts).</p>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ul>
+<li>Browsing and editing of LDAP directories</li>
+<li>Recursive operations on directory trees (copy, move and delete)</li>
+<li>Modify operations on datasets</li>
+<li>Binary attribute support</li>
+<li>Schema browsing</li>
+<li>Renaming of LDAP Entries</li>
+<li>LDIF export and import</li>
+<li>Password management (supports crypt, md5, sha, sha-crypt, samba)</li>
+<li>Management of Posix Groups and Accounts</li>
+<li>Management of Samba Accounts</li>
+<li>Postfix MTA Support</li>
+<li>LDAP SSL support (using Windows API)</li>
+<li>Template support</li>
+</ul>
+<a id="more"></a>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h4><p>下载地址: <a href="http://www.ldapadmin.org/download/ldapadmin.html" target="_blank" rel="external">http://www.ldapadmin.org/download/ldapadmin.html</a>， 下载完毕后直接解压即可使用。</p>
+<h4 id="连接配置"><a href="#连接配置" class="headerlink" title="连接配置"></a>连接配置</h4><p>打开解压得到的<strong>LdapAdmin.exe</strong>，单击工具栏中的<strong>Connect</strong>按钮，点击<strong>New connection</strong>创建新的连接。</p>
+<p><img src="/uploads/2014/03/ldap-new-connection.jpg" alt="ldap new connection"></p>
+<p>配置中Host以及相关域名请根据自身配置调整，点击<strong>Test connection</strong>测试配置，测试成功后点击<strong>OK</strong>保存，双击刚刚生成的配置<strong>crscd</strong>连接LDAP服务器。</p>
+<p><img src="/uploads/2014/03/ldap-connect.jpg" alt="ldap connect"></p>
+<h4 id="示例配置"><a href="#示例配置" class="headerlink" title="示例配置"></a>示例配置</h4><p>在<strong>dc=crscd,dc=org[ldap.crcd.org]</strong>处右击，选择”New-&gt;Organizational Unit”，创建新的组织<strong>research</strong>，点击<strong>OK</strong>确定。</p>
+<p><img src="/uploads/2014/03/ldap-organization.jpg" alt="ldap new organization"></p>
+<p>在<strong>ou=research</strong>处右击，选择”New-&gt;User””，创建新员工。</p>
+<p><img src="/uploads/2014/03/ldap-new-user.jpg" alt="ldap new user"></p>
+<p>此时我们可以在LDAP服务器中运行”<code>ldapsearch -x</code>“验证效果。</p>
+<pre><code>cuckoo@server0:~$ ldapsearch -x
+# extended LDIF
+#
+# LDAPv3
+# base &lt;dc=crscd,dc=org&gt; (default) with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# crscd.org
+dn: dc=crscd,dc=org
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: CRSC
+dc: crscd
+
+# admin, crscd.org
+dn: cn=admin,dc=crscd,dc=org
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+
+# research, crscd.org
+dn: ou=research,dc=crscd,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: research
+description:: 56CU56m26Zmi
+
+# cuckoo, research, crscd.org
+dn: uid=cuckoo,ou=research,dc=crscd,dc=org
+objectClass: posixAccount
+objectClass: top
+objectClass: inetOrgPerson
+gidNumber: 0
+givenName: Shan
+sn: Yafeng
+displayName: Shan Yafeng
+uid: cuckoo
+homeDirectory: /home/cuckoo
+cn: Shan Yafeng
+uidNumber: 31852
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 5
+# numEntries: 4
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/category/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tag/ldap/">ldap</a><a href="/tag/OpenLDAP/">OpenLDAP</a><a href="/tag/LDAP-Admin/">LDAP Admin</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://blog.kokonur.me/2014/03/28/使用ldap-admin管理openldap/" data-title="使用LDAP Admin管理OpenLDAP | Kokonur" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/03/28/通过ldap-admin修改openldap配置/" title="通过LDAP Admin修改OpenLDAP配置">
+  <strong>上一篇：</strong><br/>
+  <span>
+  通过LDAP Admin修改OpenLDAP配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/03/28/转载-openldap-installation-and-configuration-in-ubuntu-server-debian/"  title="[转载] OpenLDAP Installation and Configuration in Ubuntu Server / Debian">
+ <strong>下一篇：</strong><br/> 
+ <span>[转载] OpenLDAP Installation and Configuration in Ubuntu Server / Debian
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	
+		<div class="ds-thread" data-thread-key="473" data-title="使用LDAP Admin管理OpenLDAP" data-url="http://blog.kokonur.me/2014/03/28/使用ldap-admin管理openldap/"></div>
+	
+</section>
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features"><span class="toc-number">1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下载安装"><span class="toc-number">2.1.</span> <span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连接配置"><span class="toc-number">2.2.</span> <span class="toc-text">连接配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#示例配置"><span class="toc-number">2.3.</span> <span class="toc-text">示例配置</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/category/Gentoo/" title="Gentoo">Gentoo<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/LDAP/" title="LDAP">LDAP<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/Linux/" title="Linux">Linux<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/NAS/" title="NAS">NAS<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/Travel/" title="Travel">Travel<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/Uncategorized/" title="Uncategorized">Uncategorized<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/Vim/" title="Vim">Vim<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/WSO2/" title="WSO2">WSO2<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/biomedical-engineering/" title="biomedical engineering">biomedical engineering<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/bugs-vs-drugs/" title="bugs vs drugs">bugs vs drugs<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/itching-for-a-solution/" title="itching for a solution">itching for a solution<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/meta/" title="meta">meta<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/pieces-of-mechanisms/" title="pieces of mechanisms">pieces of mechanisms<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/sdr/" title="sdr">sdr<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/wordpress/" title="wordpress">wordpress<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/文献阅读/" title="文献阅读">文献阅读<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/category/碎碎念/" title="碎碎念">碎碎念<sup>11</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tag/ldap/" title="ldap">ldap<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/OpenLDAP/" title="OpenLDAP">OpenLDAP<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/IS/" title="IS">IS<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/wso2/" title="wso2">wso2<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/linux/" title="linux">linux<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/startssl/" title="startssl">startssl<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/LDAP-Admin/" title="LDAP Admin">LDAP Admin<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/travel/" title="travel">travel<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/ufw/" title="ufw">ufw<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/strongswan/" title="strongswan">strongswan<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/vpn/" title="vpn">vpn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/regex-dnsmasq-ipset/" title="regex dnsmasq ipset">regex dnsmasq ipset<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/build-gnuradio/" title="build-gnuradio">build-gnuradio<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/gnuradio/" title="gnuradio">gnuradio<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/gdb/" title="gdb">gdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/https/" title="https">https<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/index/" title="index">index<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/grunt/" title="grunt">grunt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tag/grunt-cli/" title="grunt-cli">grunt-cli<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://linuxtoy.org/" target="_blank" title="LinuxTOY">LinuxTOY</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://scateu.me" target="_blank" title="Scateu&#39;s Blog">Scateu&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://www.byvoid.com/" target="_blank" title="BYVoid&#39;s Blog">BYVoid&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Yafeng Shan. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/cuckoohello" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/yafeng.shan" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/110827390075659657828?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:cuckoo@kokonur.me" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+    
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Yafeng Shan">Yafeng Shan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"kokonur"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-63496916-1', 'blog.kokonur.me');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
